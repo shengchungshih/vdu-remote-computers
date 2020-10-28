@@ -2,7 +2,6 @@
 
 namespace App\Models\RdpIS;
 
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Yajra\Oci8\Eloquent\OracleEloquent as Eloquent;
 
 class Rooms extends Eloquent
@@ -35,6 +34,10 @@ class Rooms extends Eloquent
     {
         $computerIdList = RoomComputers::where('room_id', $roomId)->get('computer_id')->toArray();
 
-        return count($computerIdList) - Reservations::whereNull('is_active')->whereIn('computer_id', $computerIdList)->count();
+        $rdplessComputers = Computers::whereIn('id', $computerIdList)->whereNull('rdp_file_url')->get(['id'])->toArray();
+
+        $reservationList = Reservations::whereNull('is_active')->whereIn('computer_id', $computerIdList)->whereNotIn('computer_id', $rdplessComputers)->count();
+
+        return count($computerIdList) - count($rdplessComputers) - $reservationList;
     }
 }
