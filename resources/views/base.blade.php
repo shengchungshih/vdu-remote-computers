@@ -2,7 +2,7 @@
 @section('scripts')
     <html lang="lt">
     <head>
-        <title>Kompiuterių nuoma</title>
+        <title>VDU Nuotolinio prisijungimo sistema</title>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -37,7 +37,7 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            {{--<!--<div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLinkUser" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -52,6 +52,6 @@
                     </li>
                 </ul>
 
-            </div>-->--}}
+            </div>
         </nav>
 @endsection

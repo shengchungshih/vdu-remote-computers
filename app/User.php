@@ -2,31 +2,26 @@
 
 namespace App;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
     use Notifiable;
 
     /**
-     * The attributes that are mass assignable.
+     * The connection name for the model.
      *
-     * @var array
+     * @var string
      */
-    protected $fillable = [
-        'name', 'email', 'password',
-    ];
+    protected $connection = 'luadm';
 
     /**
-     * The attributes that should be hidden for arrays.
+     * Name of the table.
      *
-     * @var array
+     * @var string
      */
-    protected $hidden = [
-        'password', 'remember_token',
-    ];
+    protected $table = 'luadm.sso_users';
 
     /**
      * The attributes that should be cast to native types.
@@ -34,6 +29,13 @@ class User extends Authenticatable
      * @var array
      */
     protected $casts = [
-        'email_verified_at' => 'datetime',
+        'settings' => 'array',
     ];
+
+    /**
+     * Oracle binary columns.
+     *
+     * @var array
+     */
+    protected $binaries = ['settings'];
 }
