@@ -7,6 +7,8 @@ Route::get('/', 'HomepageController@getHomepage')->middleware('auth')->name('get
 
 Route::middleware('auth')->group(function(){
     Route::get('/room/{room}', 'HomepageController@getComputerList')->name('getComputerList');
+
+    Route::get('reserve_computer/{computer}', 'HomepageController@reserveComputer')->name('reserveComputer');
 });
 
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');

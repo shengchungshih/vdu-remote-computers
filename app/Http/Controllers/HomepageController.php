@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Services\RoomLoadingService;
+use App\Models\RdpIS\Reservations;
 use App\Models\RdpIS\Rooms;
 use Illuminate\Http\Request;
 
@@ -32,5 +33,11 @@ class HomepageController extends Controller
             'roomList' => $this->roomLoadingService->getRoomList(),
             'currentRoom' => $room
         ]);
+    }
+
+    public function reserveComputer($computerId)
+    {
+        $ckods = auth()->user()->cilveks_ckods;
+        return $this->roomLoadingService->reserveComputer($ckods, $computerId);
     }
 }

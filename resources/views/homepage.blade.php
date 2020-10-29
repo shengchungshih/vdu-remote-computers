@@ -3,6 +3,18 @@
 @yield('scripts')
 @yield('header')
 <div class="container">
+    @if(Session::has('download_url'))
+        <meta http-equiv="refresh" content="1;url={{ Session::get('download_url') }}">
+    @endif
+    <div class="row">
+        <div class="flash-message col-md-12">
+            @foreach (['danger', 'warning', 'success', 'info'] as $msg)
+                @if(Session::has('alert-' . $msg))
+                    <p class="alert alert-{{ $msg }} text-center">{{ Session::get('alert-' . $msg) }}</p>
+                @endif
+            @endforeach
+        </div>
+    </div>
     <div class="row">
         <div class="sidenav nav sidebar-nav">
             <div id="div-group-list">

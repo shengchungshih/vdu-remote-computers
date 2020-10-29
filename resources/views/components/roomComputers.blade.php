@@ -1,3 +1,4 @@
+@inject('roomService', 'App\Http\Services\RoomLoadingService')
 @section('roomComputers')
     @if(!empty($currentRoom))
         <div class="computer-room-div" id="room-{{$currentRoom->id}}">
@@ -22,8 +23,10 @@
                                 <tr>
                                     <td class="align-middle"> {{$computer->computer->pc_name}} </td>
                                     <td class="text-right">
-                                        @if(!$computer->computer->getIsComputerReserved($computer->computer_id))
-                                            <a class="btn btn-dark" href="{{env('RDP_FILE_URL_ROOT').'/'.$computer->computer->rdp_file_url}}"> Dėstytojo </a>
+                                        @if(!$roomService->getIsComputerReserved($computer->computer_id))
+                                            <form target="_blank" action="{{route('reserveComputer', ['computer' => $computer->computer_id])}}" method="GET">
+                                                <button class="btn btn-dark" type="submit"> Rezervuoti </button>
+                                            </form>
                                         @endif
                                     </td>
                                 </tr>
@@ -34,8 +37,10 @@
                         <tr>
                             <td style="text-align:left"> {{$computer->computer->pc_name}} </td>
                             <td class="text-right">
-                                @if(!$computer->computer->getIsComputerReserved($computer->computer_id))
-                                    <a class="btn btn-dark" href="{{env('RDP_FILE_URL_ROOT').'/'.$computer->computer->rdp_file_url}}"> Rezervuoti </a>
+                                @if(!$roomService->getIsComputerReserved($computer->computer_id))
+                                    <form target="_new" action="{{route('reserveComputer', ['computer' => $computer->computer_id])}}" class="download-form" method="GET">
+                                        <button class="btn btn-dark" type="submit"> Rezervuoti </button>
+                                    </form>
                                 @endif
                             </td>
                         </tr>
