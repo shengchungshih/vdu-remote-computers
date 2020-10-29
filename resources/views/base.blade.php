@@ -29,7 +29,7 @@
     @section ('header')
         <body class="navbar-fixed-top">
         <nav class="navbar fixed-top navbar-expand-md  navbar-dark bg-dark">
-            <a class="navbar-brand" href="https://studis.vdu.lt/#">
+            <a class="navbar-brand" href="{{route('getHomepage')}}">
                 <img src="https://resources.vdu.lt/images/vdu_logo_white_135.png" alt="Vytautas Magnus University">
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"

@@ -28,8 +28,9 @@ class HomepageController extends Controller
 
     public function getComputerList(Rooms $room)
     {
-        return view('components.roomComputers', [
-            'room' => $room
+        return view('homepage', [
+            'roomList' => $this->roomLoadingService->getRoomList(),
+            'currentRoom' => $room
         ]);
     }
 }

@@ -1,4 +1,5 @@
 @include('base')
+@include('components.roomComputers')
 @yield('scripts')
 @yield('header')
 <div class="container">
@@ -9,39 +10,23 @@
                 <ul class="flex-column nav nav-pills">
                     @foreach($roomList as $room)
                         <li class="nav-item">
-                            <a class="nav-link computer_load" href="#room-{{$room->id}}" data-id="{{$room->id}}"> {{$room->room_name}} </a>
+                            <a class="nav-link computer_load @if(!empty($currentRoom) && ($room->id === $currentRoom->id)) highlighted-link @endif" href="{{route('getComputerList', ['roomId' => $room->id])}}" data-id="{{$room->id}}"> {{$room->room_name}} </a>
                         </li>
                     @endforeach
                 </ul>
             </div>
         </div>
         <div class="col-md-12" id="computer-list-div" style="padding-left:15rem">
-
+            @yield('roomComputers')
         </div>
     </div>
 </div>
 <script>
     $(".computer_load").click(function()
     {
-        let id = $(this).data("id");
-        $.ajax({
-            url: "/remote-class/get_computer_list/"+id,
-            type: "get"
-        }).done(function(result)
-        {
-            $("#computer-list-div").html(result);
-        });
-
         $(".computer_load").removeClass('highlighted-link')
         $(this).addClass('highlighted-link');
     })
-
-
-    $(function () {
-        $('[data-toggle="tooltip"]').tooltip({
-            html: true
-        });
-    });
 </script>
 
 <style>
