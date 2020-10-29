@@ -98,7 +98,7 @@ class RoomLoadingService
         if(is_null($ckods)) {
             $ckods = $this->getActiveUserCkods();
         }
-        return Reservations::where('ckods', $ckods)->whereNull('is_active')->first()->computer_id;
+        return Reservations::where('ckods', $ckods)->whereNull('is_active')->first()->computer_id ?? '';
     }
 
     public function getActiveUserCkods()

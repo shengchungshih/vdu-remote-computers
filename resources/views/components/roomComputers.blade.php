@@ -27,7 +27,7 @@
             <tbody>
                 @foreach($currentRoom->getRoomComputers($currentRoom->id) as $computer)
                     @if($computer->computer->isComputerLecturers())
-                        @if(!empty(auth()->user()->ez_lecturer_id)) // ar destytojas
+                        @if(!empty(auth()->user()->ez_lecturer_id))
                             @if(!empty($computer->computer->rdp_file_url))
                                 <tr>
                                     <td class="align-middle"> {{$computer->computer->pc_name}} </td>
@@ -51,15 +51,19 @@
                         <tr>
                             <td style="text-align:left"> {{$computer->computer->pc_name}} </td>
                             <td class="text-right">
-                                @if(!$roomService->getIsComputerReserved($computer->computer_id))
-                                    <form target="_new" action="{{route('reserveComputer', ['computer' => $computer->computer_id])}}" class="download-form" method="GET">
-                                        <button class="btn btn-dark" type="submit"> Rezervuoti </button>
-                                    </form>
-                                @elseif($roomService->getUsersActiveReservationPc() === $computer->computer_id)
-                                    <form target="_new" action="{{route('cancelReservation', ['computer' => $computer->computer_id])}}" method="POST">
-                                        @csrf
-                                        <button class="btn btn-dark" type="submit"> Atšaukti rezervaciją </button>
-                                    </form>
+                                @if($roomService->getIfUserHasActiveReservations($roomService->getActiveUserCkods()) && $roomService->getUsersActiveReservationPc() !== $computer->computer_id)
+                                    <button class="btn btn-dark" disabled> Rezervacija </button>
+                                @else
+                                    @if(!$roomService->getIsComputerReserved($computer->computer_id))
+                                        <form target="_new" action="{{route('reserveComputer', ['computer' => $computer->computer_id])}}" class="download-form" method="GET">
+                                            <button class="btn btn-dark" type="submit"> Rezervuoti </button>
+                                        </form>
+                                    @elseif($roomService->getUsersActiveReservationPc() === $computer->computer_id)
+                                        <form target="_new" action="{{route('cancelReservation', ['computer' => $computer->computer_id])}}" method="POST">
+                                            @csrf
+                                            <button class="btn btn-dark" type="submit"> Atšaukti rezervaciją </button>
+                                        </form>
+                                    @endif
                                 @endif
                             </td>
                         </tr>
@@ -72,7 +76,14 @@
         <div class="computer-room-div">
             <h3> Pasirinkite kompiuterių klasę norint matyti kompiuterių rezervacijas </h3>
             @if($roomService->getIfUserHasActiveReservations($roomService->getActiveUserCkods()))
-                <div class="alert alert-info"> Šiuo momentu jūs esate užrezervave kompiuterį: {{$roomService->getUsersActiveReservationPcName($roomService->getUsersActiveReservationPc())}} klasėje: {{$roomService->getUsersActiveReservationRoomName($roomService->getUsersActiveReservationPc())}} </div>
+                <div class="alert alert-info"> Šiuo momentu jūs esate užrezervave kompiuterį
+                    <b>{{$roomService->getUsersActiveReservationPcName($roomService->getUsersActiveReservationPc())}} </b>
+                    adresu <b>{{$roomService->getUsersActiveReservationRoomName($roomService->getUsersActiveReservationPc())}} </b>
+                    <form target="_new" action="{{route('cancelReservation', ['computer' => $roomService->getUsersActiveReservationPc($roomService->getActiveUserCkods())])}}" method="POST">
+                        @csrf
+                        <button class="btn btn-dark" type="submit"> Atšaukti rezervaciją </button>
+                    </form>
+                </div>
             @endif
         </div>
     @endif
