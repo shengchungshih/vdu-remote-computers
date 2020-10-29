@@ -1,6 +1,4 @@
 @section('roomComputers')
-
-
     @if(!empty($currentRoom))
         <div class="computer-room-div" id="room-{{$currentRoom->id}}">
             <h3>
@@ -15,13 +13,11 @@
             </h3>
             <p> Laisvų kompiuterių kiekis: {{$currentRoom->getFreeComputersCount($currentRoom->id)}} </p>
         </div>
-
-
         <table class="table table-condensed table-borderless" id="computer-list">
             <tbody>
                 @foreach($currentRoom->getRoomComputers($currentRoom->id) as $computer)
-                    @if($computer->computer->isComputerLecturers($computer->computer_id))
-                        @if(!empty(auth()->user()->ez_lecturer_id))
+                    @if($computer->computer->isComputerLecturers())
+                        @if(!empty(auth()->user()->ez_lecturer_id)) // ar destytojas
                             <tr>
                                 <td class="align-middle"> {{$computer->computer->pc_name}} </td>
                                 <td class="text-right">
@@ -61,5 +57,4 @@
             <h3> Pasirinkite kompiuterių klasę norint matyti kompiuterių rezervacijas </h3>
         </div>
     @endif
-
 @endsection
