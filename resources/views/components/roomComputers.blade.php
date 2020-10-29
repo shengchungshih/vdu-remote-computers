@@ -20,20 +20,39 @@
         <table class="table table-condensed table-borderless" id="computer-list">
             <tbody>
                 @foreach($currentRoom->getRoomComputers($currentRoom->id) as $computer)
-                    <tr>
-                        <td class="align-middle"> {{$computer->computer->pc_name}} </td>
-                        <td class="text-right">
-                            @if(!$computer->computer->getIsComputerReserved($computer->computer_id))
-                                @if(empty($computer->computer->rdp_file_url))
-                                    <button class="btn btn-dark" aria-disabled="true" disabled> Rezervuoti </button>
+                    @if($computer->computer->isComputerLecturers($computer->computer_id))
+                        @if(!empty(auth()->user()->ez_lecturer_id))
+                            <tr>
+                                <td class="align-middle"> {{$computer->computer->pc_name}} </td>
+                                <td class="text-right">
+                                    @if(!$computer->computer->getIsComputerReserved($computer->computer_id))
+                                        @if(empty($computer->computer->rdp_file_url))
+                                            <button class="btn btn-dark" aria-disabled="true" disabled> Dėstytojo </button>
+                                        @else
+                                            <a class="btn btn-dark" href="{{env('RDP_FILE_URL_ROOT').'/'.$computer->computer->rdp_file_url}}"> Dėstytojo </a>
+                                        @endif
+                                    @else
+                                        <button class="btn btn-dark" aria-disabled="true" disabled> Dėstytojo </button>
+                                    @endif
+                                </td>
+                            </tr>
+                        @endif
+                    @else
+                        <tr>
+                            <td class="align-middle"> {{$computer->computer->pc_name}} </td>
+                            <td class="text-right">
+                                @if(!$computer->computer->getIsComputerReserved($computer->computer_id))
+                                    @if(empty($computer->computer->rdp_file_url))
+                                        <button class="btn btn-dark" aria-disabled="true" disabled> Rezervuoti </button>
+                                    @else
+                                        <a class="btn btn-dark" href="{{env('RDP_FILE_URL_ROOT').'/'.$computer->computer->rdp_file_url}}"> Rezervuoti </a>
+                                    @endif
                                 @else
-                                    <a class="btn btn-dark" href="{{env('RDP_FILE_URL_ROOT').'/'.$computer->computer->rdp_file_url}}"> Rezervuoti </a>
+                                    <button class="btn btn-dark" aria-disabled="true" disabled> Rezervuoti </button>
                                 @endif
-                            @else
-                                <button class="btn btn-dark" aria-disabled="true" disabled> Rezervuoti </button>
-                            @endif
-                        </td>
-                    </tr>
+                            </td>
+                        </tr>
+                    @endif
                 @endforeach
             </tbody>
         </table>
