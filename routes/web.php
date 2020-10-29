@@ -9,6 +9,8 @@ Route::middleware('auth')->group(function(){
     Route::get('/room/{room}', 'HomepageController@getComputerList')->name('getComputerList');
 
     Route::get('reserve_computer/{computer}', 'HomepageController@reserveComputer')->name('reserveComputer');
+
+    Route::post('cancel_reservation/{computer}', 'HomepageController@cancelComputerReservation')->name('cancelReservation');
 });
 
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');

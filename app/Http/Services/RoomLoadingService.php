@@ -6,6 +6,7 @@ namespace App\Http\Services;
 
 use App\Models\RdpIS\Computers;
 use App\Models\RdpIS\Reservations;
+use App\Models\RdpIS\RoomComputers;
 use App\Models\RdpIS\Rooms;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\RedirectResponse;
@@ -52,6 +53,21 @@ class RoomLoadingService
         return redirect()->back()->with('alert-success', 'Sėkmingai užrezervavote kompiuterį.');
     }
 
+    public function cancelComputerReservation($ckods, $computerId): RedirectResponse
+    {
+        $r = Reservations::where(['ckods' => $ckods, 'computer_id' => $computerId])->whereNull('is_active')->first();
+
+        if (empty($r)) {
+            return redirect()->back()->with('alert-warning', 'Nerasta reservacija atšaukimui.');
+        }
+
+        $r->is_active = 0;
+        $r->reservation_end_date = date('Y-m-d H:i:s');
+        $r->save();
+
+        return redirect()->back()->with('alert-success', 'Sėkmingai atšaukėte kompiuterio rezervaciją.');
+    }
+
     public function getIsComputerReserved($computerId): bool
     {
         return Reservations::where('computer_id', $computerId)->whereNull('is_active')->count() > 0;
@@ -75,5 +91,28 @@ class RoomLoadingService
     public function isComputerLecturers($computerId): bool
     {
         return Computers::where('id', $computerId)->first()->is_computer_lecturers === '1';
+    }
+
+    public function getUsersActiveReservationPc($ckods = null)
+    {
+        if(is_null($ckods)) {
+            $ckods = $this->getActiveUserCkods();
+        }
+        return Reservations::where('ckods', $ckods)->whereNull('is_active')->first()->computer_id;
+    }
+
+    public function getActiveUserCkods()
+    {
+        return auth()->user()->cilveks_ckods;
+    }
+
+    public function getUsersActiveReservationPcName($computer_id)
+    {
+        return Computers::where('id', $computer_id)->first()->pc_name;
+    }
+
+    public function getUsersActiveReservationRoomName($computer_id)
+    {
+        return RoomComputers::with('rooms')->where('computer_id', $computer_id)->first()->rooms->room_name;
     }
 }

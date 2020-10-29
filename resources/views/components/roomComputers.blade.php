@@ -12,7 +12,16 @@
                    Kompiuteriuose esanti programinė įranga neaprašyta
                 @endif
             </h3>
-            <p> Laisvų kompiuterių kiekis: {{$currentRoom->getFreeComputersCount($currentRoom->id)}} </p>
+            <div class="row align-items-center">
+                <div class="col-md-4">
+                    <p> Laisvų kompiuterių kiekis: {{$currentRoom->getFreeComputersCount($currentRoom->id)}} </p>
+                </div>
+                @if($roomService->getIfUserHasActiveReservations($roomService->getActiveUserCkods()))
+                    <div class="col-md-8">
+                        <div class="alert alert-info" style="font-size:14px;"> Kompiuterio rezervacija galima tik panaikinus esamą rezervaciją </div>
+                    </div>
+                @endif
+            </div>
         </div>
         <table class="table table-condensed table-borderless" id="computer-list">
             <tbody>
@@ -24,8 +33,13 @@
                                     <td class="align-middle"> {{$computer->computer->pc_name}} </td>
                                     <td class="text-right">
                                         @if(!$roomService->getIsComputerReserved($computer->computer_id))
-                                            <form target="_blank" action="{{route('reserveComputer', ['computer' => $computer->computer_id])}}" method="GET">
+                                            <form target="_new" action="{{route('reserveComputer', ['computer' => $computer->computer_id])}}" method="GET">
                                                 <button class="btn btn-dark" type="submit"> Rezervuoti </button>
+                                            </form>
+                                        @elseif($roomService->getUsersActiveReservationPc() === $computer->computer_id)
+                                            <form target="_new" action="{{route('cancelReservation', ['computer' => $computer->computer_id])}}" method="POST">
+                                                @csrf
+                                                <button class="btn btn-dark" type="submit"> Atšaukti rezervaciją </button>
                                             </form>
                                         @endif
                                     </td>
@@ -41,6 +55,11 @@
                                     <form target="_new" action="{{route('reserveComputer', ['computer' => $computer->computer_id])}}" class="download-form" method="GET">
                                         <button class="btn btn-dark" type="submit"> Rezervuoti </button>
                                     </form>
+                                @elseif($roomService->getUsersActiveReservationPc() === $computer->computer_id)
+                                    <form target="_new" action="{{route('cancelReservation', ['computer' => $computer->computer_id])}}" method="POST">
+                                        @csrf
+                                        <button class="btn btn-dark" type="submit"> Atšaukti rezervaciją </button>
+                                    </form>
                                 @endif
                             </td>
                         </tr>
@@ -52,6 +71,9 @@
     @else
         <div class="computer-room-div">
             <h3> Pasirinkite kompiuterių klasę norint matyti kompiuterių rezervacijas </h3>
+            @if($roomService->getIfUserHasActiveReservations($roomService->getActiveUserCkods()))
+                <div class="alert alert-info"> Šiuo momentu jūs esate užrezervave kompiuterį: {{$roomService->getUsersActiveReservationPcName($roomService->getUsersActiveReservationPc())}} klasėje: {{$roomService->getUsersActiveReservationRoomName($roomService->getUsersActiveReservationPc())}} </div>
+            @endif
         </div>
     @endif
 @endsection

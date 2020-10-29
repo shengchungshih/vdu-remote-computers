@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Services\RoomLoadingService;
 use App\Models\RdpIS\Reservations;
 use App\Models\RdpIS\Rooms;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class HomepageController extends Controller
@@ -35,9 +36,15 @@ class HomepageController extends Controller
         ]);
     }
 
-    public function reserveComputer($computerId)
+    public function reserveComputer($computerId): RedirectResponse
     {
-        $ckods = auth()->user()->cilveks_ckods;
+        $ckods = $this->roomLoadingService->getActiveUserCkods();
         return $this->roomLoadingService->reserveComputer($ckods, $computerId);
+    }
+
+    public function cancelComputerReservation($computerId): RedirectResponse
+    {
+        $ckods = $this->roomLoadingService->getActiveUserCkods();
+        return $this->roomLoadingService->cancelComputerReservation($ckods, $computerId);
     }
 }
