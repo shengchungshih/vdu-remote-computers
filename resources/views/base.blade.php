@@ -10,7 +10,7 @@
         <link href="https://resources.vdu.lt/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" rel="stylesheet">
         <!--<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">-->
 
-        <link href="https://resources.vdu.lt/css/custom/epasirasymas/style_new.css" rel="stylesheet">
+        <link href="https://resources.vdu.lt/css/custom/remote-class/style_new.css" rel="stylesheet">
 
         <script
             src="https://code.jquery.com/jquery-3.2.1.min.js"
@@ -47,7 +47,7 @@
                             Programų nuorodos
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLinkUser">
-                            <a class="dropdown-item" href="https://www.maxqda.com/trial">MaxQDA trial</a>
+                            <a class="dropdown-item" target="_blank" href="https://www.maxqda.com/trial">MaxQDA trial</a>
                         </div>
                     </li>
                 </ul>

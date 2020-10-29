@@ -62,28 +62,7 @@
         border:2px solid green !important;
         color:green !important;
     }
-     .dropdown-submenu {
-         position: relative;
-     }
 
-    .dropdown-submenu a::after {
-        transform: rotate(-90deg);
-        position: absolute;
-        right: 6px;
-        top: .8em;
-    }
-
-    .dropdown-submenu .dropdown-menu {
-        top: 0;
-        left: 100%;
-        margin-left: .1rem;
-        margin-right: .1rem;
-    }
-    .dropdown-item:focus{
-        color: red;
-        text-decoration: none;
-        background-color: initial;
-    }
     .computer_load{
         border-bottom: none;
     }
