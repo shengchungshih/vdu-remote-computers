@@ -22,7 +22,14 @@
                 <ul class="flex-column nav nav-pills">
                     @foreach($roomList as $room)
                         <li class="nav-item">
-                            <a class="nav-link computer_load @if(!empty($currentRoom) && ($room->id === $currentRoom->id)) highlighted-link @endif" href="{{route('getComputerList', ['roomId' => $room->id])}}" data-id="{{$room->id}}"> {{$room->room_name}} </a>
+                            <a class="nav-link computer_load @if(!empty($currentRoom) && ($room->id === $currentRoom->id)) highlighted-link @endif"
+                               href="{{route('getComputerList', ['roomId' => $room->id])}}" data-id="{{$room->id}}">
+                                    <strong @if($room->getFreeComputersCount($room->id) > 0) style="color:green" @else style="color:red" @endif>
+                                        <i class="fas fa-circle"></i>
+                                    </strong>
+                                {{$room->room_name}}
+                            </a>
+
                         </li>
                     @endforeach
                 </ul>
