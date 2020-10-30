@@ -13,11 +13,11 @@
                 @endif
             </h3>
             <div class="row align-items-center">
-                <div class="col-md-4">
+                <div class="col-md-2">
                     <p> Laisvų kompiuterių kiekis: {{$currentRoom->getFreeComputersCount($currentRoom->id)}} </p>
                 </div>
                 @if($roomService->getIfUserHasActiveReservations($roomService->getActiveUserCkods()))
-                    <div class="col-md-8">
+                    <div class="col-md-10">
                         <div class="alert alert-info" style="font-size:14px;"> Kompiuterio rezervacija galima tik panaikinus esamą rezervaciją </div>
                     </div>
                 @endif
@@ -89,7 +89,7 @@
                 <div class="alert alert-info"> Šiuo momentu jūs esate užrezervave kompiuterį
                     <b>{{$roomService->getUsersActiveReservationPcName($roomService->getUsersActiveReservationPc())}} </b>
                     adresu <b>{{$roomService->getUsersActiveReservationRoomName($roomService->getUsersActiveReservationPc())}} </b>
-                    <form action="{{route('cancelReservation', ['computer' => $roomService->getUsersActiveReservationPc($roomService->getActiveUserCkods())])}}" method="POST">
+                    <form action="{{route('cancelReservation', ['computer' => $roomService->getUsersActiveReservationPc($roomService->getActiveUserCkods())])}}" method="POST" class="pt-3">
                         @csrf
                         <button class="btn btn-dark" type="submit"> Atšaukti rezervaciją </button>
                     </form>

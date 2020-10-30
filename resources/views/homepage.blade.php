@@ -2,7 +2,7 @@
 @include('components.roomComputers')
 @yield('scripts')
 @yield('header')
-<div class="container">
+<div class="container-fluid">
     @if(Session::has('download_url'))
         <meta http-equiv="refresh" content="1;url={{ Session::get('download_url') }}">
     @endif
@@ -68,13 +68,17 @@
         opacity:.6;
     }
 
+    .btn{
+        cursor:pointer;
+    }
+
     .btn:disabled:hover{
         cursor:not-allowed;
     }
 
     .sidebar-nav{
         position:fixed;
-        z-index:9999;
+        z-index:999;
     }
 
     .highlighted-link{

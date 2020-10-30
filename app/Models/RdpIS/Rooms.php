@@ -27,7 +27,10 @@ class Rooms extends Eloquent
 
     public function getRoomComputers($roomId)
     {
-        return RoomComputers::with('computer')->where('room_id', $roomId)->get();
+        return RoomComputers::with('computer')->where('room_id', $roomId)->get()
+            ->sortBy(function($item, $key){
+            return $item->computer->pc_name;
+        });
     }
 
     public function getFreeComputersCount($roomId)
