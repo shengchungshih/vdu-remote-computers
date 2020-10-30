@@ -2,6 +2,8 @@
 
 namespace App\Models\RdpIS;
 
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Yajra\Oci8\Eloquent\OracleEloquent as Eloquent;
 
 class Rooms extends Eloquent
@@ -20,11 +22,19 @@ class Rooms extends Eloquent
     private $room_name;
     private $room_status;
 
+    /**
+     * @param $roomId
+     * @return RoomSoftware[]|Builder[]|Collection
+     */
     public function getRoomSoftware($roomId)
     {
         return RoomSoftware::with('software')->where('room_id', $roomId)->get();
     }
 
+    /**
+     * @param $roomId
+     * @return RoomComputers[]|Builder[]|Collection
+     */
     public function getRoomComputers($roomId)
     {
         return RoomComputers::with('computer')->where('room_id', $roomId)->get()
@@ -33,6 +43,10 @@ class Rooms extends Eloquent
         });
     }
 
+    /**
+     * @param $roomId
+     * @return int|void
+     */
     public function getFreeComputersCount($roomId)
     {
         $computerIdList = RoomComputers::where('room_id', $roomId)->get('computer_id')->toArray();

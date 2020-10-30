@@ -25,6 +25,9 @@ class Computers extends Eloquent
         return Reservations::where('computer_id', $computerId)->whereNull('is_active')->count() > 0;
     }
 
+    /**
+     * @return bool
+     */
     public function isComputerLecturers(): bool
     {
         return $this->is_computer_lecturers === '1';

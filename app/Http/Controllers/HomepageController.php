@@ -5,8 +5,11 @@ namespace App\Http\Controllers;
 use App\Http\Services\RoomLoadingService;
 use App\Models\RdpIS\Reservations;
 use App\Models\RdpIS\Rooms;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class HomepageController extends Controller
 {
@@ -21,6 +24,9 @@ class HomepageController extends Controller
     }
 
 
+    /**
+     * @return Application|Factory|View
+     */
     public function getHomepage()
     {
         return view('homepage', [
@@ -28,6 +34,10 @@ class HomepageController extends Controller
         ]);
     }
 
+    /**
+     * @param Rooms $room
+     * @return Application|Factory|View
+     */
     public function getComputerList(Rooms $room)
     {
         return view('homepage', [
@@ -36,12 +46,20 @@ class HomepageController extends Controller
         ]);
     }
 
+    /**
+     * @param $computerId
+     * @return RedirectResponse
+     */
     public function reserveComputer($computerId): RedirectResponse
     {
         $ckods = $this->roomLoadingService->getActiveUserCkods();
         return $this->roomLoadingService->reserveComputer($ckods, $computerId);
     }
 
+    /**
+     * @param $computerId
+     * @return RedirectResponse
+     */
     public function cancelComputerReservation($computerId): RedirectResponse
     {
         $ckods = $this->roomLoadingService->getActiveUserCkods();

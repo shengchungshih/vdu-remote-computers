@@ -9,6 +9,7 @@ use App\Models\RdpIS\Reservations;
 use App\Models\RdpIS\RoomComputers;
 use App\Models\RdpIS\Rooms;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\HigherOrderBuilderProxy;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Session;
 
@@ -22,6 +23,11 @@ class RoomLoadingService
         return Rooms::orderBy('room_name')->get();
     }
 
+    /**
+     * @param $ckods
+     * @param $computerId
+     * @return RedirectResponse
+     */
     public function reserveComputer($ckods, $computerId): RedirectResponse
     {
         if (empty($ckods) || empty($computerId)) {
@@ -53,6 +59,11 @@ class RoomLoadingService
         return redirect()->back()->with('alert-success', 'Sėkmingai užrezervavote kompiuterį.');
     }
 
+    /**
+     * @param $ckods
+     * @param $computerId
+     * @return RedirectResponse
+     */
     public function cancelComputerReservation($ckods, $computerId): RedirectResponse
     {
         $r = Reservations::where(['ckods' => $ckods, 'computer_id' => $computerId])->whereNull('is_active')->first();
@@ -68,32 +79,56 @@ class RoomLoadingService
         return redirect()->back()->with('alert-success', 'Sėkmingai atšaukėte kompiuterio rezervaciją.');
     }
 
+    /**
+     * @param $computerId
+     * @return bool
+     */
     public function getIsComputerReserved($computerId): bool
     {
         return Reservations::where('computer_id', $computerId)->whereNull('is_active')->count() > 0;
     }
 
+    /**
+     * @param $ckods
+     * @return bool
+     */
     public function getIfUserHasActiveReservations($ckods): bool
     {
         return Reservations::where('ckods', $ckods)->whereNull('is_active')->count() > 0;
     }
 
+    /**
+     * @param $computerId
+     * @return mixed
+     */
     public function getComputerRdpFileUrl($computerId)
     {
         return Computers::where('id', $computerId)->first()->rdp_file_url;
     }
 
+    /**
+     * @param $computerId
+     * @return string
+     */
     public function getFullComputerRdpFileUrl($computerId): string
     {
         return env('RDP_FILE_URL_ROOT').'/'.$this->getComputerRdpFileUrl($computerId);
     }
 
+    /**
+     * @param $computerId
+     * @return bool
+     */
     public function isComputerLecturers($computerId): bool
     {
         return Computers::where('id', $computerId)->first()->is_computer_lecturers === '1';
     }
 
-    public function getUsersActiveReservationPc($ckods = null)
+    /**
+     * @param null $ckods
+     * @return string
+     */
+    public function getUsersActiveReservationPc($ckods = null): string
     {
         if(is_null($ckods)) {
             $ckods = $this->getActiveUserCkods();
@@ -101,16 +136,27 @@ class RoomLoadingService
         return Reservations::where('ckods', $ckods)->whereNull('is_active')->first()->computer_id ?? '';
     }
 
+    /**
+     * @return mixed
+     */
     public function getActiveUserCkods()
     {
         return auth()->user()->cilveks_ckods;
     }
 
+    /**
+     * @param $computer_id
+     * @return mixed
+     */
     public function getUsersActiveReservationPcName($computer_id)
     {
         return Computers::where('id', $computer_id)->first()->pc_name;
     }
 
+    /**
+     * @param $computer_id
+     * @return HigherOrderBuilderProxy|mixed
+     */
     public function getUsersActiveReservationRoomName($computer_id)
     {
         return RoomComputers::with('rooms')->where('computer_id', $computer_id)->first()->rooms->room_name;

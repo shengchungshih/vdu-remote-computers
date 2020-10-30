@@ -45,8 +45,8 @@
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLinkUser">
                             <a class="dropdown-item" target="_blank" href="{{url('https://studis.vdu.lt/remote-class/downloads/Win_rdp_pc.pdf')}}">Prieiga iš Windows PC</a>
-                            <a class="dropdown-item" target="_blank" href="{{url('https://studis.vdu.lt/remote-class/downloads/Mac_rdp_pc.pdf')}}">Prieiga iš MAC</a>
-                            <a class="dropdown-item" target="_blank" href="{{url('https://studis.vdu.lt/remote-class/downloads/ACC_rdp.pdf')}}">Prieiga iš Adobe CC</a>
+                            <a class="dropdown-item" target="_blank" href="{{url('https://studis.vdu.lt/remote-class/downloads/Mac_rdp_pc.pdf')}}">Prieiga iš MAC PC</a>
+                            <a class="dropdown-item" target="_blank" href="{{url('https://studis.vdu.lt/remote-class/downloads/ACC_rdp.pdf')}}">Prieiga prie Adobe CC</a>
                         </div>
                     </li>
                     <li class="nav-item dropdown">

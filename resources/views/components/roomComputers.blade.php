@@ -26,41 +26,14 @@
         <table class="table table-condensed table-borderless" id="computer-list">
             <tbody>
                 @foreach($currentRoom->getRoomComputers($currentRoom->id) as $computer)
-                    @if($computer->computer->isComputerLecturers())
-                        @if(!empty(auth()->user()->ez_lecturer_id))
-                            @if(!empty($computer->computer->rdp_file_url))
-                                <tr>
-                                    <td class="align-middle"> {{$computer->computer->pc_name}} </td>
-                                    <td class="text-right">
-                                        @if($roomService->getIfUserHasActiveReservations($roomService->getActiveUserCkods())
-                                             && $roomService->getUsersActiveReservationPc() !== $computer->computer_id
-                                             && !$roomService->getIsComputerReserved($computer->computer_id)
-                                        )
-                                            <button class="btn btn-dark" disabled> Rezervacija </button>
-                                        @else
-                                            @if(!$roomService->getIsComputerReserved($computer->computer_id))
-                                                <form action="{{route('reserveComputer', ['computer' => $computer->computer_id])}}" method="GET">
-                                                    <button class="btn btn-dark" type="submit"> Rezervuoti </button>
-                                                </form>
-                                            @elseif($roomService->getUsersActiveReservationPc() === $computer->computer_id)
-                                                <form action="{{route('cancelReservation', ['computer' => $computer->computer_id])}}" method="POST">
-                                                    @csrf
-                                                    <button class="btn btn-dark" type="submit"> Atšaukti rezervaciją </button>
-                                                </form>
-                                            @endif
-                                        @endif
-                                    </td>
-                                </tr>
-                            @endif
-                        @endif
-                    @else
-                        @if(!empty($computer->computer->rdp_file_url))
+                    @if(!empty($computer->computer->rdp_file_url))
                         <tr>
                             <td style="text-align:left"> {{$computer->computer->pc_name}} </td>
                             <td class="text-right">
-                                @if($roomService->getIfUserHasActiveReservations($roomService->getActiveUserCkods())
+                                @if(($roomService->getIfUserHasActiveReservations($roomService->getActiveUserCkods())
                                     && $roomService->getUsersActiveReservationPc() !== $computer->computer_id
-                                    && !$roomService->getIsComputerReserved($computer->computer_id)
+                                    && !$roomService->getIsComputerReserved($computer->computer_id))
+                                    || ($computer->computer->isComputerLecturers() && empty(auth()->user()->ez_lecturer_id))
                                 )
                                     <button class="btn btn-dark" disabled> Rezervacija </button>
                                 @else
@@ -77,7 +50,6 @@
                                 @endif
                             </td>
                         </tr>
-                        @endif
                     @endif
                 @endforeach
             </tbody>
