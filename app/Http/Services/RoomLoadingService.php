@@ -8,6 +8,7 @@ use App\Models\RdpIS\Computers;
 use App\Models\RdpIS\Reservations;
 use App\Models\RdpIS\RoomComputers;
 use App\Models\RdpIS\Rooms;
+use App\Models\RdpIS\RoomTechnicians;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\HigherOrderBuilderProxy;
 use Illuminate\Http\RedirectResponse;
@@ -160,5 +161,10 @@ class RoomLoadingService
     public function getUsersActiveReservationRoomName($computer_id)
     {
         return RoomComputers::with('rooms')->where('computer_id', $computer_id)->first()->rooms->room_name;
+    }
+
+    public function getRoomTechnicianInfo($roomId)
+    {
+        return RoomTechnicians::with('cilveks')->where('room_id', $roomId)->get();
     }
 }

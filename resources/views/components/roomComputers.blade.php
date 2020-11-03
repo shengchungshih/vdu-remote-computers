@@ -2,8 +2,13 @@
 @section('roomComputers')
     @if(!empty($currentRoom))
         <div class="computer-room-div" id="room-{{$currentRoom->id}}">
-            <h3>
-                <b> {{$currentRoom->room_name}}  <br> Kompiuteriuose esanti programinė įranga:</b>
+            <h3> <b> {{$currentRoom->room_name}} </b> </h3>
+            <h6> Kompiuterius prižiūri:
+                @foreach($roomTechnicians as $technician)
+                    {{$technician->cilveks->vards.' '.$technician->cilveks->uzvards.' - '.$technician->cilveks->cil_www.'@vdu.lt /'}}
+                @endforeach
+            </h6>
+            <h3> <b> Kompiuteriuose esanti programinė įranga:</b>
                 @if(!empty($currentRoom->getRoomSoftware($currentRoom->id)))
                     @foreach($currentRoom->getRoomSoftware($currentRoom->id) as $software)
                         {{$software->software->software_name.' / '}}

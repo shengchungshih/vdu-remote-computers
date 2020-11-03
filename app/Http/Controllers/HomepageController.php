@@ -42,7 +42,8 @@ class HomepageController extends Controller
     {
         return view('homepage', [
             'roomList' => $this->roomLoadingService->getRoomList(),
-            'currentRoom' => $room
+            'currentRoom' => $room,
+            'roomTechnicians' => $this->roomLoadingService->getRoomTechnicianInfo($room->id)
         ]);
     }
 
