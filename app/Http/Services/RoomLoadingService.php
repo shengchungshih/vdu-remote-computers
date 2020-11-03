@@ -32,19 +32,19 @@ class RoomLoadingService
     public function reserveComputer($ckods, $computerId): RedirectResponse
     {
         if (empty($ckods) || empty($computerId)) {
-            return redirect()->back()->with('alert-warning', 'Įvyko klaida rezervuojant kambarį, perkraukite puslapį ir mėginkite dar kartą.');
+            return redirect()->back()->with('alert-warning', __('redirect_messages_reserving_room'));
         }
 
         if ($this->getIfUserHasActiveReservations($ckods)) {
-            return redirect()->back()->with('alert-warning', 'Jūs jau turite užrezervuotą kompiuterį.');
+            return redirect()->back()->with('alert-warning', __('redirect_messages_user_has_reserved_room'));
         }
 
         if ($this->getIsComputerReserved($computerId)) {
-            return redirect()->back()->with('alert-warning', 'Kompiuteris šiuo metu užrezervuotas.');
+            return redirect()->back()->with('alert-warning', __('redirect_messages_computer_is_already_reserved'));
         }
 
         if ($this->isComputerLecturers($computerId) && empty(auth()->user()->ez_lecturer_id)) {
-            return redirect()->back()->with('alert-warning', 'Dėstytojų kompiuterius gali rezervuoti tik dėstytojai :)');
+            return redirect()->back()->with('alert-warning', __('redirect_messages_lecturer_computer_attempted_to_reserve_by_non_lecturer'));
         }
 
         $reservation = new Reservations();
@@ -57,7 +57,7 @@ class RoomLoadingService
         $fullRdpUrl = env('RDP_FILE_URL_ROOT').'/'.$this->getComputerRdpFileUrl($computerId);
 
         Session::flash('download_url', $fullRdpUrl); // Since we cant do two requests we flash the download url to a session and the once redirected we use the meta tag to download the file
-        return redirect()->back()->with('alert-success', 'Sėkmingai užrezervavote kompiuterį.');
+        return redirect()->back()->with('alert-success', __('redirect_messages_computer_succesfully_reserved'));
     }
 
     /**
@@ -70,14 +70,14 @@ class RoomLoadingService
         $r = Reservations::where(['ckods' => $ckods, 'computer_id' => $computerId])->whereNull('is_active')->first();
 
         if (empty($r)) {
-            return redirect()->back()->with('alert-warning', 'Nerasta reservacija atšaukimui.');
+            return redirect()->back()->with('alert-warning', __('"redirect_messages_no_reservation_to_cancel":'));
         }
 
         $r->is_active = 0;
         $r->reservation_end_date = date('Y-m-d H:i:s');
         $r->save();
 
-        return redirect()->back()->with('alert-success', 'Sėkmingai atšaukėte kompiuterio rezervaciją.');
+        return redirect()->back()->with('alert-success', __('redirect_messages_reservation_canceled_succesfully'));
     }
 
     /**

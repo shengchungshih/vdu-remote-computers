@@ -1,0 +1,23 @@
+{
+    "instructions": "Instructions",
+    "program_links": "Links to software",
+    "computer_classes": "Computer classes",
+    "computer_technicians": "Computer technicians: ",
+    "software_in_computers": "Software installed in computers: ",
+    "free_computer_amount": "Amount of computers left: ",
+    "reserve": "Reserve",
+    "logout": "Logout",
+    "software_not_found": "No additional software installed in computers",
+    "cancel_current_reservation_info_message": "Current reservation must be canceled before reserving additional computers",
+    "cancel_reservation": "Cancel reservation",
+    "choose_computers_rooms_info_message": "Choose a computer room to see free computers.",
+    "your_currently_reserved_computer": "You currently have a reserved computer",
+    "at_address": "at address",
+    "redirect_messages_reserving_room": "There was an error while attempting to reserve a computer, reload the page and try again.",
+    "redirect_messages_user_has_reserved_room": "You already have a reserved computer.",
+    "redirect_messages_computer_is_already_reserved": "Computer is currently reserved.",
+    "redirect_messages_lecturer_computer_attempted_to_reserve_by_non_lecturer": "Lecturer computers can only be reserved by lecturers :)",
+    "redirect_messages_computer_succesfully_reserved": "Computer succesfully reserved.",
+    "redirect_messages_reservation_canceled_succesfully": "Computer reservation canceled succesfully.",
+    "redirect_messages_no_reservation_to_cancel": "Reservation you want to cancel was not found."
+}

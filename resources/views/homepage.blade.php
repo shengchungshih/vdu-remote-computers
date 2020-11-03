@@ -18,7 +18,7 @@
     <div class="row">
         <div class="sidenav nav sidebar-nav">
             <div id="div-group-list">
-                <h4> Kompiuterių klasės </h4>
+                <h4> @lang('computer_classes') </h4>
                 <ul class="flex-column nav nav-pills">
                     @foreach($roomList as $room)
                         <li class="nav-item">

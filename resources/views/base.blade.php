@@ -41,17 +41,18 @@
                 <ul class="navbar-nav">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="z" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Instrukcijos
+                            @lang('instructions')
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLinkUser">
                             <a class="dropdown-item" target="_blank" href="{{url('https://studis.vdu.lt/remote-class/downloads/Win_rdp_pc.pdf')}}">Prieiga iš Windows PC</a>
                             <a class="dropdown-item" target="_blank" href="{{url('https://studis.vdu.lt/remote-class/downloads/Mac_rdp_pc.pdf')}}">Prieiga iš MAC PC</a>
                             <a class="dropdown-item" target="_blank" href="{{url('https://studis.vdu.lt/remote-class/downloads/ACC_rdp.pdf')}}">Prieiga prie Adobe CC</a>
+                            <a class="dropdown-item" target="_blank" href="{{url('https://studis.vdu.lt/remote-class/downloads/Win_rdp_pcEN.pdf')}}">Remote access from Win PC</a>
                         </div>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLinkUser" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Programų nuorodos
+                            @lang('program_links')
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLinkUser">
                             <a class="dropdown-item" target="_blank" href="https://www.maxqda.com/trial">MaxQDA trial</a>
@@ -59,12 +60,18 @@
                     </li>
                 </ul>
                 <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('setLanguage', 'lt') }}">LT</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('setLanguage', 'en') }}">EN</a>
+                    </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLinkUser" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="material-icons float-left">face</i>&nbsp;&nbsp;{{auth()->user()->name}}
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLinkUser">
-                            <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Atsijungti</a>
+                            <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">@lang('logout')</a>
                             <form id="logout-form" action="{{ route('logout') }}" method="post" class="d-none">
                                 @csrf
                             </form>

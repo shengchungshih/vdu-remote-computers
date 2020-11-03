@@ -3,27 +3,27 @@
     @if(!empty($currentRoom))
         <div class="computer-room-div" id="room-{{$currentRoom->id}}">
             <h3> <b> {{$currentRoom->room_name}} </b> </h3>
-            <h6> Kompiuterius prižiūri:
+            <h6> @lang('computer_technicians')
                 @foreach($roomTechnicians as $technician)
                     {{$technician->cilveks->vards.' '.$technician->cilveks->uzvards.' - '.$technician->cilveks->cil_www.'@vdu.lt /'}}
                 @endforeach
             </h6>
-            <h3> <b> Kompiuteriuose esanti programinė įranga:</b>
+            <h3> <b> @lang('software_in_computers')</b>
                 @if(!empty($currentRoom->getRoomSoftware($currentRoom->id)))
                     @foreach($currentRoom->getRoomSoftware($currentRoom->id) as $software)
                         {{$software->software->software_name.' / '}}
                     @endforeach
                 @else
-                   Kompiuteriuose esanti programinė įranga neaprašyta
+                   @lang('software_not_found')
                 @endif
             </h3>
             <div class="row align-items-center">
                 <div class="col-md-2">
-                    <p> Laisvų kompiuterių kiekis: {{$currentRoom->getFreeComputersCount($currentRoom->id)}} </p>
+                    <p> @lang('free_computer_amount') {{$currentRoom->getFreeComputersCount($currentRoom->id)}} </p>
                 </div>
                 @if($roomService->getIfUserHasActiveReservations($roomService->getActiveUserCkods()))
                     <div class="col-md-10">
-                        <div class="alert alert-info" style="font-size:14px;"> Kompiuterio rezervacija galima tik panaikinus esamą rezervaciją </div>
+                        <div class="alert alert-info" style="font-size:14px;"> @lang('cancel_current_reservation_info_message') </div>
                     </div>
                 @endif
             </div>
@@ -40,17 +40,19 @@
                                     && !$roomService->getIsComputerReserved($computer->computer_id))
                                     || ($computer->computer->isComputerLecturers() && empty(auth()->user()->ez_lecturer_id))
                                 )
-                                    <button class="btn btn-dark" disabled> Rezervacija </button>
+                                    <button class="btn btn-dark" disabled> @lang('reserve') </button>
                                 @else
                                     @if(!$roomService->getIsComputerReserved($computer->computer_id))
                                         <form action="{{route('reserveComputer', ['computer' => $computer->computer_id])}}" class="download-form" method="GET">
-                                            <button class="btn btn-dark" type="submit"> Rezervuoti </button>
+                                            <button class="btn btn-dark" type="submit"> @lang('reserve') </button>
                                         </form>
                                     @elseif($roomService->getUsersActiveReservationPc() === $computer->computer_id)
                                         <form action="{{route('cancelReservation', ['computer' => $computer->computer_id])}}" method="POST">
                                             @csrf
-                                            <button class="btn btn-dark" type="submit"> Atšaukti rezervaciją </button>
+                                            <button class="btn btn-dark" type="submit"> @lang('cancel_reservation') </button>
                                         </form>
+                                    @else
+                                        <button class="btn btn-dark" disabled> @lang('reserve') </button>
                                     @endif
                                 @endif
                             </td>
@@ -61,14 +63,14 @@
         </table>
     @else
         <div class="computer-room-div">
-            <h3> Pasirinkite kompiuterių klasę norint matyti kompiuterių rezervacijas </h3>
+            <h3> @lang('choose_computers_rooms_info_message') </h3>
             @if($roomService->getIfUserHasActiveReservations($roomService->getActiveUserCkods()))
-                <div class="alert alert-info"> Šiuo momentu jūs esate užrezervave kompiuterį
+                <div class="alert alert-info"> @lang('your_currently_reserved_computer')
                     <b>{{$roomService->getUsersActiveReservationPcName($roomService->getUsersActiveReservationPc())}} </b>
-                    adresu <b>{{$roomService->getUsersActiveReservationRoomName($roomService->getUsersActiveReservationPc())}} </b>
+                    @lang('at_address') <b>{{$roomService->getUsersActiveReservationRoomName($roomService->getUsersActiveReservationPc())}} </b>
                     <form action="{{route('cancelReservation', ['computer' => $roomService->getUsersActiveReservationPc($roomService->getActiveUserCkods())])}}" method="POST" class="pt-3">
                         @csrf
-                        <button class="btn btn-dark" type="submit"> Atšaukti rezervaciją </button>
+                        <button class="btn btn-dark" type="submit"> @lang('cancel_reservation') </button>
                     </form>
                 </div>
             @endif

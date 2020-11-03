@@ -9,6 +9,8 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Session;
 use Illuminate\View\View;
 
 class HomepageController extends Controller
@@ -53,6 +55,7 @@ class HomepageController extends Controller
      */
     public function reserveComputer($computerId): RedirectResponse
     {
+
         $ckods = $this->roomLoadingService->getActiveUserCkods();
         return $this->roomLoadingService->reserveComputer($ckods, $computerId);
     }
@@ -65,5 +68,16 @@ class HomepageController extends Controller
     {
         $ckods = $this->roomLoadingService->getActiveUserCkods();
         return $this->roomLoadingService->cancelComputerReservation($ckods, $computerId);
+    }
+
+    public function setLanguage($lang): RedirectResponse
+    {
+        Session::put('applocale', $lang);
+        return redirect()->back();
+    }
+
+    public function getLocale()
+    {
+        return Session::get('applocale', 'lt');
     }
 }

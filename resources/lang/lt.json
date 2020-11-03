@@ -1,0 +1,23 @@
+{
+    "instructions": "Instrukcijos",
+    "program_links": "Programų nuorodos",
+    "computer_classes": "Kompiuterių klasės",
+    "computer_technicians": "Kompiuterius prižiūri: ",
+    "software_in_computers": "Kompiuteriuose esanti programinė įranga: ",
+    "free_computer_amount": "Laisvų kompiuterių kiekis: ",
+    "reserve": "Rezervuoti",
+    "logout": "Atsijungti",
+    "software_not_found": "Kompiuteriuose esanti programinė įranga neaprašyta",
+    "cancel_current_reservation_info_message": "Kompiuterio rezervacija galima tik panaikinus esamą rezervaciją",
+    "cancel_reservation": "Atšaukti rezervaciją",
+    "choose_computers_rooms_info_message": "Pasirinkite kompiuterių klasę norint matyti kompiuterių rezervacijas",
+    "your_currently_reserved_computer": "Šiuo momentu jūs esate užrezervave kompiuterį",
+    "at_address": "adresu",
+    "redirect_messages_reserving_room": "Įvyko klaida rezervuojant kambarį, perkraukite puslapį ir mėginkite dar kartą.",
+    "redirect_messages_user_has_reserved_room": "Jūs jau turite užrezervuotą kompiuterį.",
+    "redirect_messages_computer_is_already_reserved": "Kompiuteris šiuo metu užrezervuotas.",
+    "redirect_messages_lecturer_computer_attempted_to_reserve_by_non_lecturer": "Dėstytojų kompiuterius gali rezervuoti tik dėstytojai :)",
+    "redirect_messages_computer_succesfully_reserved": "Sėkmingai užrezervavote kompiuterį.",
+    "redirect_messages_reservation_canceled_succesfully": "Sėkmingai atšaukėte kompiuterio rezervaciją.",
+    "redirect_messages_no_reservation_to_cancel": "Nerasta reservacija atšaukimui."
+}
