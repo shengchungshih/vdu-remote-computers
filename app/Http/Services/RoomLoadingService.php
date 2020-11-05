@@ -43,7 +43,7 @@ class RoomLoadingService
             return redirect()->back()->with('alert-warning', __('redirect_messages_computer_is_already_reserved'));
         }
 
-        if ($this->isComputerLecturers($computerId) && empty(auth()->user()->ez_lecturer_id)) {
+        if ($this->isComputerLecturers($computerId) && $this->isUserNotLecturer()) {
             return redirect()->back()->with('alert-warning', __('redirect_messages_lecturer_computer_attempted_to_reserve_by_non_lecturer'));
         }
 
@@ -54,7 +54,7 @@ class RoomLoadingService
         $reservation->reservation_start_date = date('Y-m-d H:i:s');
         $reservation->save();
 
-        $fullRdpUrl = env('RDP_FILE_URL_ROOT').'/'.$this->getComputerRdpFileUrl($computerId);
+        $fullRdpUrl = env('RDP_FILE_URL_ROOT') . '/' . $this->getComputerRdpFileUrl($computerId);
 
         Session::flash('download_url', $fullRdpUrl); // Since we cant do two requests we flash the download url to a session and the once redirected we use the meta tag to download the file
         return redirect()->back()->with('alert-success', __('redirect_messages_computer_succesfully_reserved'));
@@ -113,7 +113,7 @@ class RoomLoadingService
      */
     public function getFullComputerRdpFileUrl($computerId): string
     {
-        return env('RDP_FILE_URL_ROOT').'/'.$this->getComputerRdpFileUrl($computerId);
+        return env('RDP_FILE_URL_ROOT') . '/' . $this->getComputerRdpFileUrl($computerId);
     }
 
     /**
@@ -131,7 +131,7 @@ class RoomLoadingService
      */
     public function getUsersActiveReservationPc($ckods = null): string
     {
-        if(is_null($ckods)) {
+        if (is_null($ckods)) {
             $ckods = $this->getActiveUserCkods();
         }
         return Reservations::where('ckods', $ckods)->whereNull('is_active')->first()->computer_id ?? '';
@@ -166,5 +166,41 @@ class RoomLoadingService
     public function getRoomTechnicianInfo($roomId)
     {
         return RoomTechnicians::with('cilveks')->where('room_id', $roomId)->get();
+    }
+
+    public function isUserNotLecturer(): bool
+    {
+        return empty(auth()->user()->ez_lecturer_id);
+    }
+
+    public function isUserRoomTechnician($roomId): bool
+    {
+        return RoomTechnicians::where(['room_id' =>$roomId, 'ckods' => $this->getActiveUserCkods()])->count() > 0;
+    }
+
+    public function cancelAllRoomReservations($roomId): RedirectResponse
+    {
+        $roomComputers = RoomComputers::where('room_id', $roomId)->get(['computer_id'])->toArray();
+        $roomReservations = Reservations::whereIn('computer_id', $roomComputers)->whereNull('is_active')->get();
+
+        if(!$this->isUserEligableToCancelAllReservationsOfRoom($roomId)) {
+            return redirect()
+                ->back()
+                ->with('alert-danger', __("redirect_messages_user_not_eligable_to_cancel_room_reservations"));
+        }
+
+        foreach($roomReservations as $reservation)
+        {
+            $reservation->is_active = 0;
+            $reservation->reservation_end_date = date('Y-m-d H:i:s');
+            $reservation->save();
+        }
+
+        return redirect()->back()->with('alert-success', __("redirect_messages_all_reservations_canceled"));
+    }
+
+    public function isUserEligableToCancelAllReservationsOfRoom($roomId): bool
+    {
+        return !$this->isUserNotLecturer() || $this->isUserRoomTechnician($roomId);
     }
 }

@@ -76,8 +76,8 @@ class HomepageController extends Controller
         return redirect()->back();
     }
 
-    public function getLocale()
+    public function cancelAllRoomReservations($roomId): RedirectResponse
     {
-        return Session::get('applocale', 'lt');
+        return $this->roomLoadingService->cancelAllRoomReservations($roomId);
     }
 }

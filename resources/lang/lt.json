@@ -19,5 +19,8 @@
     "redirect_messages_lecturer_computer_attempted_to_reserve_by_non_lecturer": "Dėstytojų kompiuterius gali rezervuoti tik dėstytojai :)",
     "redirect_messages_computer_succesfully_reserved": "Sėkmingai užrezervavote kompiuterį.",
     "redirect_messages_reservation_canceled_succesfully": "Sėkmingai atšaukėte kompiuterio rezervaciją.",
-    "redirect_messages_no_reservation_to_cancel": "Nerasta reservacija atšaukimui."
+    "redirect_messages_no_reservation_to_cancel": "Nerasta reservacija atšaukimui.",
+    "redirect_messages_all_reservations_canceled": "Kambario rezervacijos sėkmingai atšauktos",
+    "redirect_messages_user_not_eligable_to_cancel_room_reservations": "Neturite teisės atšaukti visų kambario rezervacijų",
+    "cancel_all_reservations": "Atšaukti visas rezervacijas"
 }

@@ -19,5 +19,8 @@
     "redirect_messages_lecturer_computer_attempted_to_reserve_by_non_lecturer": "Lecturer computers can only be reserved by lecturers :)",
     "redirect_messages_computer_succesfully_reserved": "Computer succesfully reserved.",
     "redirect_messages_reservation_canceled_succesfully": "Computer reservation canceled succesfully.",
-    "redirect_messages_no_reservation_to_cancel": "Reservation you want to cancel was not found."
+    "redirect_messages_no_reservation_to_cancel": "Reservation you want to cancel was not found.",
+    "redirect_messages_all_reservations_canceled": "All room reservations were canceled succesfully",
+    "redirect_messages_user_not_eligable_to_cancel_room_reservations": "You are not allowed to cancel all active room reservations",
+    "cancel_all_reservations": "Cancel all reservations"
 }

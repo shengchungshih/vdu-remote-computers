@@ -13,6 +13,8 @@ Route::middleware(['auth', 'locale'])->group(function(){
     Route::post('cancel_reservation/{computer}', 'HomepageController@cancelComputerReservation')->name('cancelReservation');
 
     Route::get('set_language/{lang}', 'HomepageController@setLanguage')->name('setLanguage');
+
+    Route::post('cancel_all_reservations/{roomId}', 'HomepageController@cancelAllRoomReservations')->name('cancelAllReservations');
 });
 
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');

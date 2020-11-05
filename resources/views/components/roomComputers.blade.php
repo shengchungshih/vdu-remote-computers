@@ -3,11 +3,6 @@
     @if(!empty($currentRoom))
         <div class="computer-room-div" id="room-{{$currentRoom->id}}">
             <h3> <b> {{$currentRoom->room_name}} </b> </h3>
-            <h6> @lang('computer_technicians')
-                @foreach($roomTechnicians as $technician)
-                    {{$technician->cilveks->vards.' '.$technician->cilveks->uzvards.' - '.$technician->cilveks->cil_www.'@vdu.lt /'}}
-                @endforeach
-            </h6>
             <h3> <b> @lang('software_in_computers')</b>
                 @if(!empty($currentRoom->getRoomSoftware($currentRoom->id)))
                     @foreach($currentRoom->getRoomSoftware($currentRoom->id) as $software)
@@ -17,6 +12,11 @@
                    @lang('software_not_found')
                 @endif
             </h3>
+            <h6> @lang('computer_technicians')
+                @foreach($roomTechnicians as $technician)
+                    {{$technician->cilveks->vards.' '.$technician->cilveks->uzvards.' - '.$technician->cilveks->cil_www.'@vdu.lt /'}}
+                @endforeach
+            </h6>
             <div class="row align-items-center">
                 <div class="col-md-2">
                     <p> @lang('free_computer_amount') {{$currentRoom->getFreeComputersCount($currentRoom->id)}} </p>
@@ -38,7 +38,7 @@
                                 @if(($roomService->getIfUserHasActiveReservations($roomService->getActiveUserCkods())
                                     && $roomService->getUsersActiveReservationPc() !== $computer->computer_id
                                     && !$roomService->getIsComputerReserved($computer->computer_id))
-                                    || ($computer->computer->isComputerLecturers() && empty(auth()->user()->ez_lecturer_id))
+                                    || ($computer->computer->isComputerLecturers() && $roomService->isUserNotLecturer())
                                 )
                                     <button class="btn btn-dark" disabled> @lang('reserve') </button>
                                 @else
@@ -61,6 +61,13 @@
                 @endforeach
             </tbody>
         </table>
+        @if($roomService->isUserEligableToCancelAllReservationsOfRoom($currentRoom->id))
+            <form action="{{route('cancelAllReservations', ['roomId' => $currentRoom->id])}}" method="POST">
+                @csrf
+                <button class="btn btn-dark"> @lang('cancel_all_reservations') </button>
+            </form>
+
+        @endif
     @else
         <div class="computer-room-div">
             <h3> @lang('choose_computers_rooms_info_message') </h3>
