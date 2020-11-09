@@ -66,7 +66,6 @@
                 @csrf
                 <button class="btn btn-dark"> @lang('cancel_all_reservations') </button>
             </form>
-
         @endif
     @else
         <div class="computer-room-div">

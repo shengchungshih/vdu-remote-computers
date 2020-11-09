@@ -17,6 +17,17 @@ use Illuminate\Support\Facades\Session;
 class RoomLoadingService
 {
     /**
+     * @var RdpGeneratingService
+     */
+    private $rdpGeneratingService;
+
+    public function __construct(RdpGeneratingService $rdpGeneratingService)
+    {
+        $this->rdpGeneratingService = $rdpGeneratingService;
+    }
+
+
+    /**
      * @return Rooms[]|Collection
      */
     public function getRoomList()
@@ -54,7 +65,7 @@ class RoomLoadingService
         $reservation->reservation_start_date = date('Y-m-d H:i:s');
         $reservation->save();
 
-        $fullRdpUrl = env('RDP_FILE_URL_ROOT') . '/' . $this->getComputerRdpFileUrl($computerId);
+        $fullRdpUrl = $this->rdpGeneratingService->getRdpFileFromServer($computerId);
 
         Session::flash('download_url', $fullRdpUrl); // Since we cant do two requests we flash the download url to a session and the once redirected we use the meta tag to download the file
         return redirect()->back()->with('alert-success', __('redirect_messages_computer_succesfully_reserved'));

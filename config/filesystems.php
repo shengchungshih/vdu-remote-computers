@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'default' => env('FILESYSTEM_DRIVER', 'local'),
+    'default' => env('FILESYSTEM_DRIVER', 'sftp'),
 
     /*
     |--------------------------------------------------------------------------
@@ -63,6 +63,19 @@ return [
             'bucket' => env('AWS_BUCKET'),
             'url' => env('AWS_URL'),
             'endpoint' => env('AWS_ENDPOINT'),
+        ],
+        'sftp' => [
+            'driver' => 'sftp',
+            'host' => env('SERVER_HOST'),
+            'username' => env('SERVER_USERNAME'),
+            'password' => env('SERVER_PASSWORD'),
+
+            // Optional FTP Settings...
+            'port' => 22,
+            'root' => env('SERVER_ROOT'),
+            // 'passive' => true,
+            // 'ssl' => true,
+            // 'timeout' => 30,
         ],
 
     ],

@@ -29,7 +29,6 @@
                                     </strong>
                                 {{$room->room_name}}
                             </a>
-
                         </li>
                     @endforeach
                 </ul>
