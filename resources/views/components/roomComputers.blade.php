@@ -73,7 +73,7 @@
             @if($roomService->getIfUserHasActiveReservations($roomService->getActiveUserCkods()))
                 <div class="alert alert-info"> @lang('your_currently_reserved_computer')
                     <b>{{$roomService->getUsersActiveReservationPcName($roomService->getUsersActiveReservationPc())}} </b>
-                    @lang('at_address') <b>{{$roomService->getUsersActiveReservationRoomName($roomService->getUsersActiveReservationPc())}} </b>
+                    @lang('at_address') <b>{{$roomService->getComputersRoomName($roomService->getUsersActiveReservationPc())}} </b>
                     <form action="{{route('cancelReservation', ['computer' => $roomService->getUsersActiveReservationPc($roomService->getActiveUserCkods())])}}" method="POST" class="pt-3">
                         @csrf
                         <button class="btn btn-dark" type="submit"> @lang('cancel_reservation') </button>

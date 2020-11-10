@@ -22,5 +22,17 @@
     "redirect_messages_no_reservation_to_cancel": "Reservation you want to cancel was not found.",
     "redirect_messages_all_reservations_canceled": "All computer classes reservations were canceled succesfully",
     "redirect_messages_user_not_eligable_to_cancel_room_reservations": "You are not allowed to cancel all active room reservations",
-    "cancel_all_reservations": "Cancel all reservations"
+    "cancel_all_reservations": "Cancel all reservations",
+    "statistics": "Statistics",
+    "statistics_table_header_reservation_start": "Start of reservation",
+    "statistics_table_header_reservation_end": "End of reservation",
+    "statistics_table_header_computer_class_name": "Computer class",
+    "statistics_table_header_computer_name": "Computer name",
+    "statistics_table_header_user_name_and_surname": "Name / Surname",
+    "order_by": "Order By",
+    "is_active": "Show active reservations only",
+    "start_date": "Start date",
+    "end_date": "End date",
+    "all_computer_classes": "All computer classes",
+    "search": "Search"
 }

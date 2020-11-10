@@ -22,5 +22,17 @@
     "redirect_messages_no_reservation_to_cancel": "Nerasta reservacija atšaukimui.",
     "redirect_messages_all_reservations_canceled": "Kompiuterių klasės rezervacijos sėkmingai atšauktos",
     "redirect_messages_user_not_eligable_to_cancel_room_reservations": "Neturite teisės atšaukti visų kambario rezervacijų",
-    "cancel_all_reservations": "Atšaukti visas rezervacijas"
+    "cancel_all_reservations": "Atšaukti visas rezervacijas",
+    "statistics": "Statistika",
+    "statistics_table_header_reservation_start": "Rezervacijos pradžia",
+    "statistics_table_header_reservation_end": "Rezervacijos pabaiga",
+    "statistics_table_header_computer_class_name": "Kompiuterių klasė",
+    "statistics_table_header_computer_name": "Kompiuterio pavadinimas",
+    "statistics_table_header_user_name_and_surname": "Vardas / Pavardė",
+    "order_by": "Rūšiuoti pagal",
+    "is_active": "Rodyti aktyvias",
+    "start_date": "Pradžios data",
+    "end_date": "Pabaigos data",
+    "all_computer_classes": "Visos kompiuterių klasės",
+    "search": "Ieškoti"
 }

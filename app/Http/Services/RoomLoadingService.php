@@ -169,7 +169,7 @@ class RoomLoadingService
      * @param $computer_id
      * @return HigherOrderBuilderProxy|mixed
      */
-    public function getUsersActiveReservationRoomName($computer_id)
+    public function getComputersRoomName($computer_id)
     {
         return RoomComputers::with('rooms')->where('computer_id', $computer_id)->first()->rooms->room_name;
     }

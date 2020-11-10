@@ -15,6 +15,8 @@ Route::middleware(['auth', 'locale'])->group(function(){
     Route::get('set_language/{lang}', 'HomepageController@setLanguage')->name('setLanguage');
 
     Route::post('cancel_all_reservations/{roomId}', 'HomepageController@cancelAllRoomReservations')->name('cancelAllReservations');
+
+    Route::get('get_reservation_statistics', 'StatisticsController@getReservationList')->name('getReservationList');
 });
 
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
