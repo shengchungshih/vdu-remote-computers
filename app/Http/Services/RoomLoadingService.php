@@ -30,9 +30,12 @@ class RoomLoadingService
     /**
      * @return Rooms[]|Collection
      */
-    public function getRoomList()
+    public function getRoomList($roomId = null)
     {
-        return Rooms::orderBy('room_name')->get();
+        return Rooms::orderBy('room_name')
+            ->when(!is_null($roomId), function($q) use ($roomId) {
+                $q->where('id', $roomId);
+            })->get();
     }
 
     /**

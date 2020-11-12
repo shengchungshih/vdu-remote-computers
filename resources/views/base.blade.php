@@ -50,10 +50,15 @@
                             @lang('instructions')
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLinkUser">
-                            <a class="dropdown-item" target="_blank" href="{{url('https://studis.vdu.lt/remote-class/downloads/Win_rdp_pc.pdf')}}">Prieiga iš Windows PC</a>
-                            <a class="dropdown-item" target="_blank" href="{{url('https://studis.vdu.lt/remote-class/downloads/Mac_rdp_pc.pdf')}}">Prieiga iš MAC PC</a>
-                            <a class="dropdown-item" target="_blank" href="{{url('https://studis.vdu.lt/remote-class/downloads/ACC_rdp.pdf')}}">Prieiga prie Adobe CC</a>
-                            <a class="dropdown-item" target="_blank" href="{{url('https://studis.vdu.lt/remote-class/downloads/Win_rdp_pcEN.pdf')}}">Remote access from Win PC</a>
+                            @if(\Illuminate\Support\Facades\Session::get('applocale') === 'lt')
+                                <a class="dropdown-item" target="_blank" href="{{url('https://studis.vdu.lt/remote-class/downloads/Win_rdp_pc.pdf')}}">Prieiga iš Windows PC</a>
+                                <a class="dropdown-item" target="_blank" href="{{url('https://studis.vdu.lt/remote-class/downloads/Mac_rdp_pc.pdf')}}">Prieiga iš MAC PC</a>
+                                <a class="dropdown-item" target="_blank" href="{{url('https://studis.vdu.lt/remote-class/downloads/ACC_rdp.pdf')}}">Prieiga prie Adobe CC</a>
+                            @else
+                                <a class="dropdown-item" target="_blank" href="{{url('https://studis.vdu.lt/remote-class/downloads/Win_rdp_pcEN.pdf')}}">Remote access from Win PC</a>
+                                <a class="dropdown-item" target="_blank" href="{{url('https://studis.vdu.lt/remote-class/downloads/Mac_rdp_pcEN.pdf')}}">Remote access from MAC PC</a>
+                                <a class="dropdown-item" target="_blank" href="{{url('https://studis.vdu.lt/remote-class/downloads/ACC_rdp_EN.pdf')}}">Access to Adobe CC</a>
+                            @endif
                         </div>
                     </li>
                     <li class="nav-item dropdown">
@@ -64,16 +69,17 @@
                             <a class="dropdown-item" target="_blank" href="https://www.maxqda.com/trial">MaxQDA trial</a>
                         </div>
                     </li>
+                    @permission('rdpis_statistics')
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLinkUser" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             @lang('statistics')
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLinkUser">
-                            <a class="dropdown-item" target="_blank" href="{{route('getReservationList')}}">Rezervacijų logas</a>
-                            <a class="dropdown-item" target="_blank" href="#">2</a>
-                            <a class="dropdown-item" target="_blank" href="#">3</a>
+                            <a class="dropdown-item" target="_blank" href="{{route('getReservationList')}}">@lang('reservation_history')</a>
+                            <a class="dropdown-item" target="_blank" href="{{route('getClassOccupancy')}}">@lang('room_occupancy')</a>
                         </div>
                     </li>
+                    @endpermission
                 </ul>
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">

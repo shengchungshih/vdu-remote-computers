@@ -16,7 +16,11 @@ Route::middleware(['auth', 'locale'])->group(function(){
 
     Route::post('cancel_all_reservations/{roomId}', 'HomepageController@cancelAllRoomReservations')->name('cancelAllReservations');
 
-    Route::get('get_reservation_statistics', 'StatisticsController@getReservationList')->name('getReservationList');
+    Route::middleware(['permission' => 'permission:rdpis_statistics'])->group(function(){
+        Route::get('get_reservation_statistics', 'StatisticsController@getReservationList')->name('getReservationList');
+
+        Route::get('get_class_occupancy_statistics', 'StatisticsController@getClassOccupancy')->name('getClassOccupancy');
+    });
 });
 
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');

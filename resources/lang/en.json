@@ -34,5 +34,15 @@
     "start_date": "Start date",
     "end_date": "End date",
     "all_computer_classes": "All computer classes",
-    "search": "Search"
+    "search": "Search",
+    "total_reservations_during_period": "Total reservations during period:",
+    "total": "Total",
+    "reservation_history": "Reservation history",
+    "room_occupancy": "Computer room occupancy",
+    "all_days_period": "All time (may take a while)",
+    "how_many_days_to_show": "Amount of days data to show",
+    "no_permission_to_view_page": "Unfortunately you do not have the permission to view this page",
+    "you_are_using_system_as": "You are using the system as:"
+
+
 }

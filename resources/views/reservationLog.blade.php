@@ -60,7 +60,7 @@
                 <tr>
                     <td> {{$r->id}} </td>
                     <td> {{date('Y-m-d H:i:s', strtotime($r->reservation_start_date.' +2 hours'))}} </td>
-                    <td> @if(!$isActive){{date('Y-m-d H:i:s', strtotime($r->reservation_end_date.' +2 hours'))}} @endif </td>
+                    <td> @if(!is_null($r->is_active)){{date('Y-m-d H:i:s', strtotime($r->reservation_end_date.' +2 hours'))}} @endif </td>
                     <td> {{$r->room_name}} </td>
                     <td> {{$r->pc_name}} </td>
                     <td> {{$r->vards.' '.$r->uzvards}} </td>

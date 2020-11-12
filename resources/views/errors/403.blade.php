@@ -22,9 +22,9 @@
             </div>
             <div class="row">
                 <div class="col">
-                    <p class="text-center">Deja, tačiau jūs neturite teisės matyti šį puslapį... :/</p>
+                    <p class="text-center">@lang('no_permission_to_view_page')</p>
                     @if(auth()->user())
-                        <p class="text-center">Jūs naudojatės sistema kaip <strong>{{ auth()->user()->name }}</strong>. <a href="{{ url('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Atsijungti</a>?</p>
+                        <p class="text-center">@lang('you_are_using_system_as') <strong>{{ auth()->user()->name }}</strong>. <a href="{{ url('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">@lang('logout')</a>?</p>
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                             {{ csrf_field() }}
                         </form>

@@ -34,5 +34,13 @@
     "start_date": "Pradžios data",
     "end_date": "Pabaigos data",
     "all_computer_classes": "Visos kompiuterių klasės",
-    "search": "Ieškoti"
+    "search": "Ieškoti",
+    "total_reservations_during_period": "Iš viso rezervacijų klasėje per pasirinktą laikotarpį:",
+    "total": "Iš viso",
+    "reservation_history": "Rezervacijų istorija",
+    "room_occupancy": "Kompiuterių klasių užimtumas",
+    "all_days_period": "Viso laiko (gali užtrukti)",
+    "how_many_days_to_show": "Kelių dienų duomenis rodyti",
+    "no_permission_to_view_page": "Deja, tačiau jūs neturite teisės matyti šį puslapį... :/",
+    "you_are_using_system_as": "Jūs naudojatės sistema kaip: "
 }
