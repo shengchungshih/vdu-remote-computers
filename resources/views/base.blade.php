@@ -57,7 +57,7 @@
                             @else
                                 <a class="dropdown-item" target="_blank" href="{{url('https://studis.vdu.lt/remote-class/downloads/Win_rdp_pcEN.pdf')}}">Remote access from Win PC</a>
                                 <a class="dropdown-item" target="_blank" href="{{url('https://studis.vdu.lt/remote-class/downloads/Mac_rdp_pcEN.pdf')}}">Remote access from MAC PC</a>
-                                <a class="dropdown-item" target="_blank" href="{{url('https://studis.vdu.lt/remote-class/downloads/ACC_rdp_EN.pdf')}}">Access to Adobe CC</a>
+                                <a class="dropdown-item" target="_blank" href="{{url('https://studis.vdu.lt/remote-class/downloads/ACC_rdpEN.pdf')}}">Access to Adobe CC</a>
                             @endif
                         </div>
                     </li>

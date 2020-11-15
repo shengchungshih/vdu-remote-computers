@@ -31,33 +31,31 @@
         <table class="table table-condensed table-borderless" id="computer-list">
             <tbody>
                 @foreach($currentRoom->getRoomComputers($currentRoom->id) as $computer)
-                    @if(!empty($computer->computer->rdp_file_url))
-                        <tr>
-                            <td style="text-align:left"> {{$computer->computer->pc_name}} </td>
-                            <td class="text-right">
-                                @if(($roomService->getIfUserHasActiveReservations($roomService->getActiveUserCkods())
-                                    && $roomService->getUsersActiveReservationPc() !== $computer->computer_id
-                                    && !$roomService->getIsComputerReserved($computer->computer_id))
-                                    || ($computer->computer->isComputerLecturers() && $roomService->isUserNotLecturer())
-                                )
-                                    <button class="btn btn-dark" disabled> @lang('reserve') </button>
+                    <tr>
+                        <td style="text-align:left"> {{$computer->computer->pc_name}} </td>
+                        <td class="text-right">
+                            @if(($roomService->getIfUserHasActiveReservations($roomService->getActiveUserCkods())
+                                && $roomService->getUsersActiveReservationPc() !== $computer->computer_id
+                                && !$roomService->getIsComputerReserved($computer->computer_id))
+                                || ($computer->computer->isComputerLecturers() && $roomService->isUserNotLecturer())
+                            )
+                                <button class="btn btn-dark" disabled> @lang('reserve') </button>
+                            @else
+                                @if(!$roomService->getIsComputerReserved($computer->computer_id))
+                                    <form action="{{route('reserveComputer', ['computer' => $computer->computer_id])}}" class="download-form" method="GET">
+                                        <button class="btn btn-dark" type="submit"> @lang('reserve') </button>
+                                    </form>
+                                @elseif($roomService->getUsersActiveReservationPc() === $computer->computer_id)
+                                    <form action="{{route('cancelReservation', ['computer' => $computer->computer_id])}}" method="POST">
+                                        @csrf
+                                        <button class="btn btn-dark" type="submit"> @lang('cancel_reservation') </button>
+                                    </form>
                                 @else
-                                    @if(!$roomService->getIsComputerReserved($computer->computer_id))
-                                        <form action="{{route('reserveComputer', ['computer' => $computer->computer_id])}}" class="download-form" method="GET">
-                                            <button class="btn btn-dark" type="submit"> @lang('reserve') </button>
-                                        </form>
-                                    @elseif($roomService->getUsersActiveReservationPc() === $computer->computer_id)
-                                        <form action="{{route('cancelReservation', ['computer' => $computer->computer_id])}}" method="POST">
-                                            @csrf
-                                            <button class="btn btn-dark" type="submit"> @lang('cancel_reservation') </button>
-                                        </form>
-                                    @else
-                                        <button class="btn btn-dark" disabled> @lang('reserve') </button>
-                                    @endif
+                                    <button class="btn btn-dark" disabled> @lang('reserve') </button>
                                 @endif
-                            </td>
-                        </tr>
-                    @endif
+                            @endif
+                        </td>
+                    </tr>
                 @endforeach
             </tbody>
         </table>

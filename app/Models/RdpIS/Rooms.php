@@ -55,6 +55,6 @@ class Rooms extends Eloquent
 
         $reservationList = Reservations::whereNull('is_active')->whereIn('computer_id', $computerIdList)->whereNotIn('computer_id', $rdplessComputers)->count();
 
-        return count($computerIdList) - count($rdplessComputers) - $reservationList;
+        return count($computerIdList) - $reservationList;
     }
 }

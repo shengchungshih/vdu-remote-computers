@@ -54,13 +54,11 @@ class StatisticsController extends Controller
         } elseif (!$req->exists('start-date')) {
             $startDate = $endDate->modify('-14 days');
         }
-        $amountOfDays = 30;
         return view('classOccupancy', [
             'roomList' => $this->roomLoadingService->getRoomList(),
             'rooms' => $this->roomLoadingService->getRoomList($roomId),
             'roomComputerOccupancyData' => $this->dataService->getRoomComputerOccupancyStats($startDate, $endDate, $roomId),
             'datePeriod' => $this->dataService->getDatePeriodArray($startDate, $endDate),
-            'amountOfDays' => $amountOfDays,
             'startDate' => $startDate,
             'endDate' => $endDate
         ]);
