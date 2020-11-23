@@ -37,9 +37,14 @@ class Rooms extends Eloquent
      */
     public function getRoomComputers($roomId)
     {
-        return RoomComputers::with('computer')->where('room_id', $roomId)->get()
-            ->sortBy(function($item, $key){
-            return $item->computer->pc_name;
+        return RoomComputers::whereHas('computer', function($q){
+            $q->whereNull('status');
+        })->with(['computer' => function($q){
+            $q->whereNull('status');
+        }])->where('room_id', $roomId)
+            ->get()
+            ->sortBy(function($item, $key) {
+                return $item->computer->pc_name ?? '';
         });
     }
 

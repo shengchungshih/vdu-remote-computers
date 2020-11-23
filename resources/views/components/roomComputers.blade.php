@@ -2,8 +2,8 @@
 @section('roomComputers')
     @if(!empty($currentRoom))
         <div class="computer-room-div" id="room-{{$currentRoom->id}}">
-            <h3> <b> {{$currentRoom->room_name}} </b> </h3>
-            <h3> <b> @lang('software_in_computers')</b>
+            <h5> <b> {{$currentRoom->room_name}} </b> </h5>
+            <h5> <b> @lang('software_in_computers')</b>
                 @if(!empty($currentRoom->getRoomSoftware($currentRoom->id)))
                     @foreach($currentRoom->getRoomSoftware($currentRoom->id) as $software)
                         {{$software->software->software_name.' / '}}
@@ -11,7 +11,7 @@
                 @else
                    @lang('software_not_found')
                 @endif
-            </h3>
+            </h5>
             <h6> @lang('computer_technicians')
                 @foreach($roomTechnicians as $technician)
                     {{$technician->cilveks->vards.' '.$technician->cilveks->uzvards.' - '.$technician->cilveks->cil_www.'@vdu.lt /'}}
